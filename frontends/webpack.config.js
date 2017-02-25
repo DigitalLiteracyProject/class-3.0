@@ -5,11 +5,11 @@ var BundleTracker = require('webpack-bundle-tracker');
 var config = {
     context: __dirname,
     output: {
-        path: path.resolve('../assets/bundles/'),
+        path: path.resolve('../backends/_frontend_outputs/bundles/'),
         filename: '[name].js'
     },
     plugins: [
-        new BundleTracker({filename: './webpack-stats.json'}),
+        new BundleTracker({filename: '../backends/_frontend_outputs/webpack-stats.json'}),
 
         // share dependencies across different entries in common chunks
         new webpack.optimize.CommonsChunkPlugin('commons'),

@@ -123,14 +123,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'assets'),    
+    os.path.join(BASE_DIR, 'assets'),
+    os.path.join(BASE_DIR, '_frontend_outputs/bundles'),
 ]
 
 ## webpack-loader
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'frontends/webpack-stats.json'),
+        'BUNDLE_DIR_NAME': '/',
+        'STATS_FILE': os.path.join(BASE_DIR, '_frontend_outputs/webpack-stats.json'),
     }    
 }
