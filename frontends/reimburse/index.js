@@ -1,12 +1,12 @@
-var React = require('react')
-var ReactDOM = require('react-dom')
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
-var Hello = React.createClass({
-    render: function() {
+class Reimburse extends Component {
+    render() {
         return (
             <h1>Hello, React!</h1>
         )
-    }    
-})
+    }
+}
 
-ReactDOM.render(<Hello />, document.getElementById('reactbase'))
+ReactDOM.render(<Reimburse />, document.getElementById('reactbase'))
