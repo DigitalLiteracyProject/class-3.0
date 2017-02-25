@@ -2,7 +2,7 @@
 
 ## Getting Started (for developers)
 
-### Structure
+### General Structure
 **class-3.0** is one large [Django](https://www.djangoproject.com/) project split up into multiple parts.
 
 First, we make the distinction between *backends* and *frontends*. Then,
@@ -47,4 +47,22 @@ First, we make the distinction between *backends* and *frontends*. Then,
     2. cd to `class/backends`
     3. run `python manage.py runserver` to run the server and make it accessible (via a browser) at `http://127.0.0.1:8000`
 
-### Adding an app
+### Structure of an app
+An app called *foobar* would have various components like
+* A line `'foobar.Foobar'` in the `INSTALLED_APPS` list of `class/backends/class/settings.py`
+* An entry `url(r'^foobar/', include('foobar.urls'))` in `class/backends/class/urls.py`
+* The Django app directory `class/backends/foobar`, and inside
+    * `__init__.py` containing a `class Foobar(AppConfig)` definition
+    * `admin.py` containing Django admin panel registration
+    * `models.py` containing the database models used by the app
+    * `urls.py` containing routes used by the app
+    * `view.py` containing most of the backend code for the app
+    * `*.py` (other supporting files)
+    * potentially a `templates/foobar` directory containing custom templates (remember that the `core` app has shared useful templates that apps should try to use as much as possible)
+* A line `foobar: './foobar/index.js'` in the `entry` definition in `class/frontends/webpack.config.js`
+* The React app directory `class/frontends/foobar`, and inside
+    * `index.js` containing routes, CSS imports, and the base component of the app.
+    * `*.js` and `*.css` (other supporting files and components)
+
+Remember that apps should use as much stuff from the `core` app as possible to promote interoperability and reduce redundancy.
+For instance, the `core` app provides a basic React-loading `index.html` template, obviating the need for most apps to provide their own templates.
