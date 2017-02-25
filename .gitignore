@@ -1,6 +1,8 @@
-class/node_modules
-class/assets/bundles
-class/webpack-stats.json
-class/class/__pycache__
-class/reimburse/__pycache__
-class/reimburse/migrations/__pycache__
+node_modules/
+npm-debug.log
+__pycache__
+*.sqlite
+*.db
+*.sqlite3
+backends/assets/bundles
+frontends/webpack-stats.json

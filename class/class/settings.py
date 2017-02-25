@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webpack_loader',
-    'reimburse.apps.ReimburseConfig',
+    'core.CoreApp',
+    'reimburse.ReimburseApp',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +131,6 @@ STATICFILES_DIRS = [
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontends/webpack-stats.json'),
     }    
 }

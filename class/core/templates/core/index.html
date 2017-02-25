@@ -1,0 +1,11 @@
+{% load render_bundle from webpack_loader %}
+<html>
+    <head>
+        <title> DLP: Reimburse </title>
+    </head>
+    <body>
+        <div id="reactbase"></div>
+        {% render_bundle 'commons' %}
+        {% render_bundle bundle %}
+    </body>
+</html>
