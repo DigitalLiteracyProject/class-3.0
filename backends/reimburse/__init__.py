@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class ReimburseConfig(AppConfig):
+class ReimburseApp(AppConfig):
     name = 'reimburse'

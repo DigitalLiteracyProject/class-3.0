@@ -1,0 +1,6 @@
+_frontend_outputs/
+
+__pycache__
+*.sqlite
+*.db
+*.sqlite3

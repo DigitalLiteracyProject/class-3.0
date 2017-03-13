@@ -1,6 +1,2 @@
-class/node_modules
-class/assets/bundles
-class/webpack-stats.json
-class/class/__pycache__
-class/reimburse/__pycache__
-class/reimburse/migrations/__pycache__
+venv/
+.idea/
