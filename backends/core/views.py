@@ -38,6 +38,7 @@ class ClassroomList(generics.ListCreateAPIView):
 class ClassroomDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ClassroomSerializer
     permission_classes = (permissions.IsAuthenticated, IsTeacherForClassroom)
+    queryset = Classroom.objects.all()
 
 
 class IsTeacherForClassroomStudent(permissions.BasePermission):
@@ -47,7 +48,11 @@ class IsTeacherForClassroomStudent(permissions.BasePermission):
         return self.has_object_permission(request, view, classroom)
 
     def has_object_permission(self, request, view, obj):
-        return obj.classroom.teacher == request.user
+        if isinstance(obj, Classroom):
+            classroom = obj
+        else:
+            classroom = obj.classroom
+        return classroom.teacher == request.user
 
 
 class StudentListForClassroom(generics.ListCreateAPIView):
@@ -58,9 +63,9 @@ class StudentListForClassroom(generics.ListCreateAPIView):
         classroom_id = self.kwargs['classroom_id']
         classroom = Classroom.objects.get(id=classroom_id)
         if classroom:
-            Student.objects.filter(classroom=classroom)
+            return Student.objects.filter(classroom=classroom)
         else:
-            Student.objects.none()
+            return Student.objects.none()
 
     def perform_create(self, serializer):
         classroom_id = self.kwargs['classroom_id']
