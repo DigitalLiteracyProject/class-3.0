@@ -102,3 +102,7 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, '_frontend_outputs/webpack-stats.json'),
     }    
 }
+
+# Google OpenID client id and secret
+GOOGLE_OPENID_CLIENT_ID = os.environ.get('OPENID_CLIENT_ID', None)
+GOOGLE_OPENID_CLIENT_SECRET = os.environ.get('OPENID_CLIENT_SECRET', None)
