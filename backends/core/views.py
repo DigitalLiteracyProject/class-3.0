@@ -5,13 +5,13 @@ from .models import User, Classroom, Student
 from .serializers import UserSerializer, ClassroomSerializer, StudentSerializer
 
 
-class UserList(generics.ListCreateAPIView):
+class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
 
 
-class UserDetail(generics.RetrieveUpdateAPIView):
+class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
