@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
-from .login_view import openid_login_view, openid_callback_view
+from .login_views import openid_login_view, openid_callback_view
 
 urlpatterns = format_suffix_patterns([
     url(r'login/$', openid_login_view),
