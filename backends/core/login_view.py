@@ -14,7 +14,7 @@ from oauth2client.client import OAuth2WebServerFlow
 flow = OAuth2WebServerFlow(client_id=settings.GOOGLE_OPENID_CLIENT_ID,
                            client_secret=settings.GOOGLE_OPENID_CLIENT_SECRET,
                            # TODO: change this to an actual legit redirect_uri
-                           redirect_uri='http://lvh.me:8000/core/login/openid_callback',
+                           redirect_uri='http://localhost:8000/core/login/openid_callback',
                            scope='openid email')
 
 
