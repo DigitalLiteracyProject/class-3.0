@@ -13,11 +13,13 @@ class ClassroomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Classroom
         fields = ('id', 'description', 'teacher')
+        read_only_fields = ('teacher',)
 
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('id', 'name', 'classroom')
+        read_only_fields = ('classroom',)
 
 
