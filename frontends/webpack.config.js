@@ -17,7 +17,8 @@ var config = {
     entry: {
         commons: ['react', 'react-dom'],
         reimburse: './reimburse/index.js',
-        draw: './draw/index.js'
+        draw: './draw/index.js',
+        attendunce: './attendunce/index.jsx'
     },
     module: {
         loaders: [
