@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'core.CoreApp',
     'reimburse.ReimburseApp',
     'draw.DrawApp',
+    'attendunce.AttendunceApp'
 ]
 
 WSGI_APPLICATION = 'class.wsgi.application'
@@ -100,7 +101,7 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': '/',
         'STATS_FILE': os.path.join(BASE_DIR, '_frontend_outputs/webpack-stats.json'),
-    }    
+    }
 }
 
 # Google OpenID client id and secret
