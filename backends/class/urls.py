@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^core/', include('core.urls')),
     url(r'^reimburse/', include('reimburse.urls')),
     url(r'^draw/', include('draw.urls')),
+    url(r'^attendunce/', include('attendunce.urls')),
 ]
