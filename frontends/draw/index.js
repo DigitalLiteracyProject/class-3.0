@@ -1,71 +1,34 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { ajax } from '../helpers';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
-class Draw extends Component {
-  constructor() {
-    super();
-    this.state = {
-      students: [],
-      name: null
-    };
-  }
+import ClassList from './ClassList';
+import ClassAdmin from './ClassAdmin';
+import DrawRaffle from './DrawRaffle';
+import StudentJoin from './StudentJoin';
 
-  // TODO: get rid of console.logs
-  componentWillMount() {
-    var classroomId = document.getElementById('params').dataset.params;
-    ajax("GET", "/core/api/classrooms/" + classroomId + "/students/", "json",
-         function(students) {
-           var namesToDraw = students.map((student) => student.name);
-           this.setState({ students: namesToDraw });
-         }.bind(this),
-         function(err) {}.bind(this));
-  }
+const App = (props) => (
+  <div>
+    <div className='top-bar'>
+      <h1>DLP Draw</h1>
+    </div>
+    <div className='main-container'>
+      {props.children}
+    </div>
+  </div>
+);
 
-  doDraw() {
-    var randomIndex;
-    var randomStudentName;
-    randomIndex = Math.floor(Math.random() * this.state.students.length);
-    randomStudentName = this.state.students[randomIndex];
-    this.setState({
-      name: randomStudentName
-    });
-  }
-  
-  render() {
-    var innerComponent;
-    if (this.state.name) {
-      innerComponent =
-        <DrawResult name={this.state.name} doDraw={() => this.doDraw()} />
-    } else {
-      innerComponent = <DrawButton doDraw={() => this.doDraw()} />
-    }
+const Main = () => (
+  <App>
+    <Router>
+      <Switch>
+        <Route path='/classroom/:classroomId/draw' component={DrawRaffle} />
+        <Route path='/classroom/:classroomId' component={ClassAdmin} />
+        <Route path='/join/:classroomJoinKey' component={StudentJoin} />
+        <Route path='/' component={ClassList} />
+      </Switch>
+    </Router>
+  </App>
+);
 
-    return (
-      <div className="draw-container">
-        {innerComponent}
-      </div>
-    );
-  }
-}
-
-class DrawButton extends Component {
-  render() {
-    return (
-      <button className="btn" onClick={this.props.doDraw}>Draw</button>
-    );
-  }
-}
-
-class DrawResult extends Component {
-  render() {
-    return (
-      <div>
-        <h1>{this.props.name}</h1>
-        <button className="btn" onClick={this.props.doDraw}>Draw Again</button>
-      </div>
-    );
-  }
-}
-
-ReactDOM.render(<Draw />, document.getElementById('reactbase'))
+ReactDOM.render(<Main />, document.getElementById('reactbase'))
