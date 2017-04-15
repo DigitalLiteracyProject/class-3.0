@@ -1,6 +1,5 @@
 from django.shortcuts import redirect
 from django.conf import settings
-from django.middleware import csrf
 from django.http import HttpResponseBadRequest, HttpResponseServerError, HttpResponseForbidden
 from django.utils.crypto import get_random_string
 
@@ -22,7 +21,7 @@ def _already_logged_in(next_url):
     if next_url and next_url.startswith("/"):
         return redirect(next_url)
     else:
-        return redirect("/core/api/classrooms")
+        return redirect(settings.LOGIN_REDIRECT_URL)
 
 
 def openid_login_view(request):
