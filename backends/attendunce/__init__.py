@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class DrawApp(AppConfig):
-    name = 'draw'
+class AttendunceApp(AppConfig):
+    name = 'attendunce'

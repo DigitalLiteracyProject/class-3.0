@@ -2,21 +2,33 @@ import React from 'react';
 import {render} from 'react-dom';
 import NameCard from './NameCard.jsx';
 
-class App extends React.Component {
-  render () {
-    var name = "Daniel";
-    var name2 = "Jay";
-    var name3 = "Brian";
-    return <div>
-      <NameCard name={name} clickedHandler={this.handleNameCardClicked} />
-      <NameCard name={name2} clickedHandler={this.handleNameCardClicked} />
-      <NameCard name={name3} clickedHandler={this.handleNameCardClicked} />
-    </div>;
+// fetch users from core api
+fetch('/core/api/users/', {
+  credentials: 'include'
+})
+.then(function(response) {
+  return response.json();
+})
+.then(function(myJson) {
+  var names = [];
+  for (var i = 0; i < myJson.length; i++){
+    console.log(myJson[i]['email'])
+    names.push(myJson[i]['email'])
   }
 
-  handleNameCardClicked(name) {
-  	console.log(name);
-  }
-}
+  console.log(names);
 
-render(<App/>, document.getElementById('app'));
+  class App extends React.Component {
+    render () {
+      var namecards = names.map((name) =>
+        <NameCard name={name} clickedHandler={this.handleNameCardClicked} />
+      )
+      return <div> {namecards} </div>
+      }
+
+    handleNameCardClicked(name) {
+    	console.log(name);
+    }
+  }
+  render(<App/>, document.getElementById('app'));
+});
