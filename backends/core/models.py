@@ -62,6 +62,9 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return self.is_superuser
 
+    def __str__(self):
+        return 'User[{}]: {} <{}>'.format(self.id, self.name, self.email)
+
 
 class Classroom(models.Model):
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
