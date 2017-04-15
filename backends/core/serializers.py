@@ -12,14 +12,14 @@ class UserSerializer(serializers.ModelSerializer):
 class ClassroomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Classroom
-        fields = ('id', 'description', 'teacher')
+        fields = ('id', 'description', 'teacher', 'join_key')
         read_only_fields = ('teacher',)
 
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('id', 'name', 'classroom')
+        fields = ('id', 'name', 'classroom', 'is_pending')
         read_only_fields = ('classroom',)
 
 

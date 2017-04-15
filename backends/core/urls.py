@@ -11,7 +11,7 @@ urlpatterns = format_suffix_patterns([
     url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
     url(r'^api/classrooms/$', views.ClassroomList.as_view()),
     url(r'^api/classrooms/(?P<pk>[0-9]+)/$', views.ClassroomDetail.as_view()),
-    url(r'^api/classrooms/(?P<classroom_id>[0-9]+)/students/$', views.StudentListForClassroom.as_view()),
+    url(r'^api/classrooms/(?P<classroom_id>[0-9]+)/students/(?P<f>(all|pending)?)$', views.StudentListForClassroom.as_view()),
     url(r'^api/students/(?P<pk>[0-9]+)/$', views.StudentDetail.as_view()),
     url(r'^$', landing_view),
 ])
