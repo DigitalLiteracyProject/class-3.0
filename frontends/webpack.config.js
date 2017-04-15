@@ -11,12 +11,18 @@ var config = {
     plugins: [
         new BundleTracker({filename: '../backends/_frontend_outputs/webpack-stats.json'}),
 
+        // make React JSX interpretation available without explicit import React in each file
+        new webpack.ProvidePlugin({
+            React: 'react'
+        }),
+
         // share dependencies across different entries in common chunks
         new webpack.optimize.CommonsChunkPlugin('commons'),
     ],
     entry: {
         commons: ['react', 'react-dom'],
-        reimburse: './reimburse/index.js'
+        reimburse: './reimburse/index.js',
+        draw: './draw/index.js'
     },
     module: {
         loaders: [
