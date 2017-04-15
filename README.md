@@ -9,7 +9,7 @@ First, we make the distinction between *backends* and *frontends*. Then,
 * Within *backends* are multiple Django apps (see [here](https://docs.djangoproject.com/en/1.10/intro/tutorial01/#creating-the-polls-app) for distinction between "app" and "project")
 * Within *frontends* are multiple React apps corresponding to the the backend apps.
 
-### Setup
+### Initial Setup
 1. Clone this repo (or your fork of it). We'll refer to the directory you cloned it to as `class/`.
 2. Setup the Python/Django tools and environment
     1. Ensure you have `Python 3` (and not `Python 2`).
@@ -31,7 +31,7 @@ First, we make the distinction between *backends* and *frontends*. Then,
         * cd to `class/frontends/`
         * run `npm install`; this will install dependencies into a directory called `node_modules`
 
-### Running everything
+### Running Everything
 1. Remember to `git pull` (or `git fetch` followed by merge/rebase) the latest changes!
 2. Running the frontend development toolchain
     1. Remember
@@ -46,8 +46,17 @@ First, we make the distinction between *backends* and *frontends*. Then,
         * if any dependency problems arise, activate the venv, cd to `class/`, and re-run `pip install -r requirements.txt` as dependencies may have changed
     2. cd to `class/backends`
     3. run `python manage.py runserver` to run the server and make it accessible (via a browser) at `http://127.0.0.1:8000`
+    
+### Further Setup Once Running
+1. Make sure everything is running as per the section above
+2. Make yourself an admin account
+    1. cd to `class/backends/`
+    2. run `python manage.py createsuperuser`, filling in an email and password when prompted
+3. Go to `http://127.0.0.1:8000/admin/` and log in
+4. At the admin page, make some initial users, classrooms, and students (in that order)
+5. You can now login with the newly created users at `http://127.0.0.1:8000/api-auth/login/`, allowing you to navigate the various api calls via the REST framework
 
-### Structure of an app
+### Structure of an App
 An app called *foobar* would have various components like
 * A line `'foobar.Foobar'` in the `INSTALLED_APPS` list of `class/backends/class/settings.py`
 * An entry `url(r'^foobar/', include('foobar.urls'))` in `class/backends/class/urls.py`
