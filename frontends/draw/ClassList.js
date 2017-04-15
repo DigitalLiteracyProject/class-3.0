@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { responseAsJson, handleFetchError } from '../util';
+import { apiFetch } from '../util';
 
 export default class ClassList extends Component {
   constructor() {
@@ -12,23 +12,9 @@ export default class ClassList extends Component {
   }
 
   componentWillMount() {
-    fetch('/core/api/classrooms', {credentials: 'include'})
-      .then(responseAsJson)
-      .then(({body, ok, status}) => {
-        if (ok) {
-          this.setState({
-            classes: body
-          });
-        } else if (status == 401) {
-          // not logged in yet, so redirect to login
-          window.location.replace('/core/login');
-        } else {
-          throw new Error('Internal error: unexpected status return.');
-        }
-      })
-      .catch(err => handleFetchError(err => {
-        this.setState({err: err});
-      }));
+    apiFetch('/core/api/classrooms')
+    .then((body) => this.setState({ classes: body }))
+    .catch(err => this.setState({ err: 'Failed to retrieve classroom list: ' + err }));
   }
 
   render() {
@@ -41,6 +27,7 @@ export default class ClassList extends Component {
     return (
       <div>
         <h2>Classrooms</h2>
+        {this.state.err ? <p>Error: {this.state.err}</p> : null}
         {classDivs}
       </div>
     );

@@ -18,3 +18,21 @@ export const handleFetchError = (func) =>
         }
     }
 ;
+
+export const apiFetch = (url) => 
+    fetch(url, { credentials: 'include' })
+    .then(responseAsJson)
+    .then(({body, ok, status}) => {
+        if (ok) {
+            return body;
+        } else if (status == 401) {
+            // not logged in yet, so redirect to login
+            window.location.replace('/core/login');
+        } else {
+            throw new Error('Internal error: unexpected status return.');
+        }
+    })
+    .catch(err => handleFetchError(err => {
+        throw err;
+    }))
+;
