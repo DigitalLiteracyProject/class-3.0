@@ -43,7 +43,7 @@ export default class DrawRaffle extends Component {
       name: randomStudentName
     });
   }
-  
+
   render() {
     var innerComponent;
     if (this.state.name) {

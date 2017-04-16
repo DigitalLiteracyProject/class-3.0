@@ -3,27 +3,27 @@ import { Link } from 'react-router-dom';
 import { apiFetch } from '../util';
 
 export default class ClassAdmin extends Component {
-	constructor(props) {
-		super();
-		this.state = {
-			classroom: {
-				id: props.match.params.classroomId,
-				description: 'Loading...'
-			},
-			students: [],
-			pending: [],
-			err: null
-		};
-	}
+  constructor(props) {
+    super();
+    this.state = {
+      classroom: {
+        id: props.match.params.classroomId,
+        description: 'Loading...'
+      },
+      students: [],
+      pending: [],
+      err: null
+    };
+  }
 
-	componentWillMount() {
-		let classroomIdParam = this.props.match.params.classroomId;
-		let classroomId = parseInt(classroomIdParam);
+  componentWillMount() {
+    let classroomIdParam = this.props.match.params.classroomId;
+    let classroomId = parseInt(classroomIdParam);
 
-		if (!classroomId) {
-			this.setState({err: 'Invalid classroom: ' + classroomIdParam});
-			return;
-		}
+    if (!classroomId) {
+      this.setState({err: 'Invalid classroom: ' + classroomIdParam});
+      return;
+    }
 
     apiFetch('/core/api/classrooms/' + classroomId)
     .then((body) => this.setState({ classroom: body }))
@@ -36,36 +36,36 @@ export default class ClassAdmin extends Component {
     apiFetch('/core/api/classrooms/' + classroomId + '/students/pending')
     .then((body) => this.setState({ pending: body }))
     .catch(err => this.setState({ err: 'Failed to retrieve pending students: ' + err }));
-	}
+  }
 
-	render() {
+  render() {
     let students = this.state.students.map(s => (
-			<li key={s.id}>{s.name}</li>
-		));
+      <li key={s.id}>{s.name}</li>
+    ));
 
-		let pending = this.state.pending.map(s => (
-			<li key={s.id}>{s.name}<span><button>Approve</button></span></li>
-		));
+    let pending = this.state.pending.map(s => (
+      <li key={s.id}>{s.name}<span><button>Approve</button></span></li>
+    ));
 
-		return (
-			<div>
+    return (
+      <div>
         {this.state.err ? <p>Error: {this.state.err}</p> : null}
-				<h2>Classroom: {this.state.classroom.id}</h2>
+        <h2>Classroom: {this.state.classroom.id}</h2>
         <Link to={'/classroom/' + this.state.classroom.id + '/draw'}><button>Draw</button></Link>
-				<p>{this.state.classroom.description}</p>
+        <p>{this.state.classroom.description}</p>
         <div>
-					<h3>Students</h3>
-					<ul>
-						{students}
-					</ul>
-				</div>
-				<div>
-					<h3>Pending</h3>
-					<ul>
-						{pending}
-					</ul>
-				</div>
-		  </div>
-		);
-	}
+          <h3>Students</h3>
+          <ul>
+            {students}
+          </ul>
+        </div>
+        <div>
+          <h3>Pending</h3>
+          <ul>
+            {pending}
+          </ul>
+        </div>
+      </div>
+    );
+  }
 }
