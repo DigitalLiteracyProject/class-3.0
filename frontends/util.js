@@ -19,8 +19,8 @@ export const handleFetchError = (func) =>
     }
 ;
 
-export const apiFetch = (url) => 
-    fetch(url, { credentials: 'include' })
+export const apiFetch = (url, options) => 
+    fetch(url, Object.assign({}, options, { credentials: 'include' }))
     .then(responseAsJson)
     .then(({body, ok, status}) => {
         if (ok) {
