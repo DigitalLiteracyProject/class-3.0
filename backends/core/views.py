@@ -63,7 +63,16 @@ class StudentListForClassroom(generics.ListCreateAPIView):
         classroom_id = self.kwargs['classroom_id']
         classroom = Classroom.objects.get(id=classroom_id)
         if classroom:
-            return Student.objects.filter(classroom=classroom)
+            f = self.kwargs.get('f', '')
+
+            if f == 'all':
+                return Student.objects.filter(classroom=classroom)
+            elif f == 'pending':
+                return Student.objects.filter(classroom=classroom, is_pending=True)
+            elif f == '':  # default to students already in classroom (not pending)
+                return Student.objects.filter(classroom=classroom, is_pending=False)
+            else:
+                return Student.objects.none()
         else:
             return Student.objects.none()
 

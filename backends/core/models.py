@@ -69,6 +69,7 @@ class User(AbstractBaseUser):
 class Classroom(models.Model):
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField()
+    join_key = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return "Classroom[{}]: (t: {}) {}".format(self.id, self.teacher.id, self.description)
@@ -77,6 +78,7 @@ class Classroom(models.Model):
 class Student(models.Model):
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+    is_pending = models.BooleanField('pending', default=True)
 
     def __str__(self):
         return "Student[{}]: (c: {}) {}".format(self.id, self.classroom.id, self.name)
