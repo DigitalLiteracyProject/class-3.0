@@ -5,7 +5,7 @@ class NameCard extends React.Component {
 		super(props);
 		this.updateClick = () => {this._updateClick();};
 		this.state = {
-			clicked: 0,
+			present: this.props.present,
 		};
 	}
 
@@ -16,25 +16,20 @@ class NameCard extends React.Component {
 		const pStyleAbsent = {
 			color: 'red',
 		}
-		const pStyleLate = {
-			color: 'olive',
-		}
-		const status = this.state.clicked
 
-		if (status == 0){
+		if (this.state.present){
 			return <p style={pStylePresent} onClick={this.updateClick}>{this.props.name}</p>;
-		} else if (status == 1) {
-			return <p style={pStyleAbsent} onClick={this.updateClick}>{this.props.name}</p>;
 		} else {
-			return <p style={pStyleLate} onClick={this.updateClick}>{this.props.name}</p>;
+			return <p style={pStyleAbsent} onClick={this.updateClick}>{this.props.name}</p>;
 		}
 	}
 
 	_updateClick() {
 		this.setState({
-			clicked: (this.state.clicked + 1) % 3,
+			present: !this.state.present,
 		});
-		this.props.clickedHandler(this.props.name);
+		// not sure why I needed the !this.state.present here?
+		this.props.clickedHandler(this.props.name, this.props.id, !this.state.present);
 	}
 }
 

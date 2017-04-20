@@ -5,7 +5,7 @@ import NameCard from './NameCard.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {users: []};
+    this.state = {users: {}};
   }
 
   componentWillMount() {
@@ -15,29 +15,47 @@ class App extends React.Component {
     .then(function(response) {
       return response.json();
     })
-    .then((myJson) =>
-      this.setState(users: myJson)
-  )}
-
-  render () {
-    var namecards = this.state.users.map((user) =>
-      <NameCard key={user.id} name={user.email} clickedHandler={this.handleNameCardClicked} />
-    )
-    return <div> {namecards} <button type="button" onClick = {this.submitAttendance}>Submit Attendance</button></div>
+    .then((myJson) => {
+      var dict = myJson.reduce(function(acc, cur, i) {
+        acc[i] = cur;
+        return acc;
+      }, {});
+      for (var key in dict) {
+        dict[key].present = false;
+      }
+      this.setState(
+        {users: dict})
+    })
   }
 
-  handleNameCardClicked(name) {
+  render () {
+    var namecards = [];
+    for (var key in this.state.users) {
+      namecards.push(<NameCard present={this.state.users[key].present}
+                               id={this.state.users[key].id}
+                               key={this.state.users[key].id}
+                               name={this.state.users[key].email}
+                               clickedHandler={this.handleNameCardClicked.bind(this)} />)
+    }
+
+    return <div> {namecards} <button type="button" onClick = {this.submitAttendance.bind(this)}>Submit Attendance</button></div>
+  }
+
+  handleNameCardClicked(name, id, present) {
   	console.log(name);
+    console.log(present);
+    this.state.users[id - 1].present = present;
+    console.log("After");
+    console.log(this.state.users[id - 1].present);
   }
 
   submitAttendance() {
     alert('Attendance submitted!');
+    console.log(this.state.users);
   }
 }
 render(<App/>, document.getElementById('app'));
 
-// convert array to dictionary
-// move state tracking functionality from namecard to app (just present or absent)
 // have app on submit coordinate with backend
 // frontend submits post fetch request
 // urls on backend will handle
