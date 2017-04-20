@@ -2,33 +2,42 @@ import React from 'react';
 import {render} from 'react-dom';
 import NameCard from './NameCard.jsx';
 
-// fetch users from core api
-fetch('/core/api/users/', {
-  credentials: 'include'
-})
-.then(function(response) {
-  return response.json();
-})
-.then(function(myJson) {
-  var names = [];
-  for (var i = 0; i < myJson.length; i++){
-    console.log(myJson[i]['email'])
-    names.push(myJson[i]['email'])
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {users: []};
   }
 
-  console.log(names);
+  componentWillMount() {
+    fetch('/core/api/users/', {
+        credentials: 'include'
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then((myJson) =>
+      this.setState(users: myJson)
+  )}
 
-  class App extends React.Component {
-    render () {
-      var namecards = names.map((name) =>
-        <NameCard name={name} clickedHandler={this.handleNameCardClicked} />
-      )
-      return <div> {namecards} </div>
-      }
-
-    handleNameCardClicked(name) {
-    	console.log(name);
-    }
+  render () {
+    var namecards = this.state.users.map((user) =>
+      <NameCard key={user.id} name={user.email} clickedHandler={this.handleNameCardClicked} />
+    )
+    return <div> {namecards} <button type="button" onClick = {this.submitAttendance}>Submit Attendance</button></div>
   }
-  render(<App/>, document.getElementById('app'));
-});
+
+  handleNameCardClicked(name) {
+  	console.log(name);
+  }
+
+  submitAttendance() {
+    alert('Attendance submitted!');
+  }
+}
+render(<App/>, document.getElementById('app'));
+
+// convert array to dictionary
+// move state tracking functionality from namecard to app (just present or absent)
+// have app on submit coordinate with backend
+// frontend submits post fetch request
+// urls on backend will handle
