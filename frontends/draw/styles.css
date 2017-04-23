@@ -62,3 +62,7 @@
 .error-msg {
   color: darkred;
 }
+
+.student-list-card:not(:last-child) {
+  margin-bottom: -2px;
+}

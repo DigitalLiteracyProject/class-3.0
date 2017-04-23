@@ -41,7 +41,7 @@ export default class ClassAdmin extends Component {
 
   render() {
     let students = this.state.students.map(s => (
-      <div className='card' key={s.id}>
+      <div className='card student-list-card' key={s.id}>
         <header>
           {s.name}
           <button className={classnames('rh-button', { success: true, error: !true })}>{true ? 'In Drawing' : 'Excluded'}</button>
@@ -50,7 +50,7 @@ export default class ClassAdmin extends Component {
     ));
 
     let pending = this.state.pending.map(s => (
-      <div className='card' key={s.id}>
+      <div className='card student-list-card' key={s.id}>
         <header>
           <div>
             {s.name}
