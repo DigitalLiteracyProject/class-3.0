@@ -1,34 +1,41 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import ClassList from './ClassList';
 import ClassAdmin from './ClassAdmin';
 import DrawRaffle from './DrawRaffle';
 import StudentJoin from './StudentJoin';
 
+import 'picnic/picnic.min.css';
+import './styles.css';
+
 const App = (props) => (
   <div>
-    <div className='top-bar'>
-      <h1>DLP Draw</h1>
+    <div>
+      <nav className='top-bar'>
+        <Link to='/' className='brand'>
+          <span>DLP Draw</span>
+        </Link>
+      </nav>
     </div>
-    <div className='main-container'>
+    <section className='main-container'>
       {props.children}
-    </div>
+    </section>
   </div>
 );
 
 const Main = () => (
-  <App>
-    <Router>
+  <Router>
+    <App>
       <Switch>
         <Route path='/classroom/:classroomId/draw' component={DrawRaffle} />
         <Route path='/classroom/:classroomId' component={ClassAdmin} />
         <Route path='/join/:classroomJoinKey' component={StudentJoin} />
         <Route path='/' component={ClassList} />
       </Switch>
-    </Router>
-  </App>
+    </App>
+  </Router>
 );
 
 ReactDOM.render(<Main />, document.getElementById('reactbase'))

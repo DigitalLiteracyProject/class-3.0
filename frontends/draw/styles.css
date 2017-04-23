@@ -1,0 +1,52 @@
+.card header {
+  font-weight: inherit;
+}
+
+.main-container {
+  padding-top: 70px;
+}
+
+.main-section {
+  width: calc(100% - 20px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 760px) {
+  .main-section {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1300px) {
+  .main-section {
+    width: 60%;
+  }
+}
+
+.rh-button {
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 0.85em;
+  margin-top: 0.52em;
+  margin-right: 0.9em;
+}
+
+.inline-heading h1,
+.inline-heading h2,
+.inline-heading h3,
+.inline-heading h4,
+.inline-heading h5,
+.inline-heading h6 {
+  display: inline-block;
+}
+
+.inline-heading label,
+.inline-heading button {
+  margin-left: 20px;
+}
+
+.error-msg {
+  color: darkred;
+}

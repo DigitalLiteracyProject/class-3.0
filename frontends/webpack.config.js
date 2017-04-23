@@ -1,8 +1,9 @@
-var webpack = require('webpack');
-var path = require('path');
-var BundleTracker = require('webpack-bundle-tracker');
+const webpack = require('webpack');
+const path = require('path');
+const BundleTracker = require('webpack-bundle-tracker');
 
-var config = {
+
+const config = {
     context: __dirname,
     output: {
         path: path.resolve('../backends/_frontend_outputs/bundles/'),
@@ -22,7 +23,7 @@ var config = {
     entry: {
         commons: ['react', 'react-dom'],
         reimburse: './reimburse/index.js',
-        draw: './draw/index.js'
+        draw: './draw/index.js',
     },
     module: {
         loaders: [
@@ -33,6 +34,10 @@ var config = {
                 query: {
                     presets: ['react', 'es2015']
                 }
+            },
+            {
+                test: /\.css$/,
+                loader: ['style-loader', 'css-loader']
             }
         ]
     },

@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { apiFetch } from '../util';
+import classnames from 'classnames';
 
 export default class ClassAdmin extends Component {
   constructor(props) {
@@ -40,31 +41,51 @@ export default class ClassAdmin extends Component {
 
   render() {
     let students = this.state.students.map(s => (
-      <li key={s.id}>{s.name}</li>
+      <div className='card' key={s.id}>
+        <header>
+          {s.name}
+          <button className={classnames('rh-button', { success: true, error: !true })}>{true ? 'In Drawing' : 'Excluded'}</button>
+        </header>
+      </div>
     ));
 
     let pending = this.state.pending.map(s => (
-      <li key={s.id}>{s.name}<span><button>Approve</button></span></li>
+      <div className='card' key={s.id}>
+        <header>
+          <div>
+            {s.name}
+            <button className='rh-button'>Approve</button>
+          </div>
+        </header>
+      </div>
     ));
 
     return (
-      <div>
-        {this.state.err ? <p>Error: {this.state.err}</p> : null}
-        <h2>Classroom: {this.state.classroom.id}</h2>
-        <Link to={'/classroom/' + this.state.classroom.id + '/draw'}><button>Draw</button></Link>
-        <p>{this.state.classroom.description}</p>
-        <div>
-          <h3>Students</h3>
-          <ul>
+      <div className='main-section card'>
+        <header>
+          <h2>Classroom: {this.state.classroom.id}</h2>
+          {this.state.err ? <p className='error-msg'>Error: {this.state.err}</p> : null}
+          <p>{this.state.classroom.description}</p>
+          <Link to={'/classroom/' + this.state.classroom.id + '/draw'}>
+            <button>Draw</button>
+          </Link>
+        </header>
+        <footer>
+          <div>
+            <h3>Students</h3>
             {students}
-          </ul>
-        </div>
-        <div>
-          <h3>Pending</h3>
-          <ul>
+          </div>
+          <div>
+            <span className='inline-heading'>
+              <h3>Pending</h3>
+              <label>
+                <input type='checkbox' />
+                <span className='checkable'>Open classroom for joining</span>
+              </label>
+            </span>
             {pending}
-          </ul>
-        </div>
+          </div>
+        </footer>
       </div>
     );
   }

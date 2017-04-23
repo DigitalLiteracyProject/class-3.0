@@ -19,13 +19,15 @@ export default class ClassList extends Component {
 
   render() {
     const classDivs = this.state.classes.map(c => (
-      <div key={c.id}>
-        <Link to={'/classroom/' + c.id}>{c.description}</Link>
-        <Link to={'/classroom/' + c.id + '/draw'}><button>Draw</button></Link>
-      </div>
+      <Link to={'/classroom/' + c.id}>
+        <div key={c.id} className='card'>
+          <header><p>{c.description}</p></header>
+          <footer><Link to={'/classroom/' + c.id + '/draw'}><button>Draw</button></Link></footer>
+        </div>
+      </Link>
     ));
     return (
-      <div>
+      <div className='main-section'>
         <h2>Classrooms</h2>
         {this.state.err ? <p>Error: {this.state.err}</p> : null}
         {classDivs}
